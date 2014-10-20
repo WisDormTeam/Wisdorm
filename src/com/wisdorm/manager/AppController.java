@@ -6,6 +6,7 @@ public class AppController {
 	
 	//managers or controllers
 	private NetworkManager networkManager= null;
+	private UserManager userManager = null;
 	
 	public static AppController getInstance() {
 		if(instance == null){
@@ -25,5 +26,9 @@ public class AppController {
 	
 	public NetworkManager getNetworkManager() {
 		return networkManager;
+	}
+	
+	public UserManager getUserManager() {
+		return userManager;
 	}
 }

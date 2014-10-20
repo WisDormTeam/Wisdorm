@@ -11,7 +11,7 @@ public class User extends BmobUser{
 	//above all is default attribute in BmobUser
 	
 	private BmobFile icon = null;
-	private int dormId = 0;
+	private String dormId = null;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -25,11 +25,11 @@ public class User extends BmobUser{
 		this.icon = icon;
 	}
 	
-	public int getDormId() {
+	public String getDormId() {
 		return dormId;
 	}
 	
-	public void setDormId(int dormId) {
+	public void setDormId(String dormId) {
 		this.dormId = dormId;
 	}
 }

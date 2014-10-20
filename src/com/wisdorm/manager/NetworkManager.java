@@ -11,9 +11,6 @@ import com.wisdorm.common.Message.RegisterMessage;
 
 public class NetworkManager {
 	
-	private User user = null;
-	
-	
 	public NetworkManager() {
 	}
 	
@@ -33,11 +30,28 @@ public class NetworkManager {
 		}
 	}
 	
-	private void login(LoginMessage msg,MytListener listener) {
+	private void login(LoginMessage msg,final MytListener listener) {
+		User user = AppController.getInstance().getUserManager().getUser();
+		user.setUsername(msg.getUsername());
+		user.setPassword(msg.getPassword());
+		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
+			
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				listener.onSuccess();
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				listener.onFailure(arg1);
+			}
+		});
 	}
 	
 	private void register(RegisterMessage msg,final MytListener listener){
-		user = new User();
+		User user = AppController.getInstance().getUserManager().getUser();
 		user.setUsername(msg.getUsername());
 		user.setEmail(msg.getEmail());
 		user.setPassword(msg.getPassword());
@@ -46,6 +60,7 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
+				
 				listener.onSuccess();
 			}
 			

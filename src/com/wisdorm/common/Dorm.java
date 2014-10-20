@@ -1,5 +1,6 @@
 package com.wisdorm.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 
@@ -7,18 +8,18 @@ import cn.bmob.v3.BmobObject;
 
 public class Dorm extends BmobObject{
 	private String dormName = null;
-	private Arrays dormMates = null;
+	private ArrayList<User> dormMates = null;
 	private String dormId = null;
 	
 	public Dorm() {
-		// TODO Auto-generated constructor stub
+		dormMates = new ArrayList<User>();
 	}
 	
 	public String getDormId() {
 		return dormId;
 	}
 	
-	public Arrays getDormMates() {
+	public ArrayList<User> getDormMates() {
 		return dormMates;
 	}
 	
@@ -30,7 +31,7 @@ public class Dorm extends BmobObject{
 		this.dormId = dormId;
 	}
 	
-	public void setDormMates(Arrays dormMates) {
+	public void setDormMates(ArrayList<User> dormMates) {
 		this.dormMates = dormMates;
 	}
 	public void setDormName(String dormName) {
