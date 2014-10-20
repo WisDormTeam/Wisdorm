@@ -24,13 +24,19 @@ public class AlarmFragment extends ListFragment {
 	          "George H. W. Bush",
 	          "Bill Clinton",
 	          "George W. Bush",
+	          "Barack Obama",
+	          "Jimmy Carter",
+	          "Ronald Reagan",
+	          "George H. W. Bush",
+	          "Bill Clinton",
+	          "George W. Bush",
 	          "Barack Obama"
 	     };
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		return inflater.inflate(R.layout.fragment_login, null);
+		return inflater.inflate(R.layout.alarm_fragment, null);
 	}
 	
 	@Override
