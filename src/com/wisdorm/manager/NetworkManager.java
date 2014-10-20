@@ -6,6 +6,7 @@ import cn.bmob.v3.listener.SaveListener;
 import com.wisdorm.activity.LoginActivity;
 import com.wisdorm.base.MessageBase;
 import com.wisdorm.base.MytListener;
+import com.wisdorm.bmob.QueryTool;
 import com.wisdorm.common.User;
 import com.wisdorm.common.Message.LoginMessage;
 import com.wisdorm.common.Message.RegisterMessage;
@@ -32,15 +33,18 @@ public class NetworkManager {
 	}
 	
 	private void login(LoginMessage msg,final MytListener listener) {
-		User user = AppController.getInstance().getUserManager().getUser();
+		final UserManager um = AppController.getInstance().getUserManager();
+		User user =um.getUser();
+		final String username = msg.getUsername();
+		
 		user.setUsername(msg.getUsername());
 		user.setPassword(msg.getPassword());
+		
 		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
-			
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				
+				um.getQueryTool().queryUser(username);
 				listener.onSuccess();
 			}
 			
@@ -53,7 +57,8 @@ public class NetworkManager {
 	}
 	
 	private void register(RegisterMessage msg,final MytListener listener){
-		User user = AppController.getInstance().getUserManager().getUser();
+		UserManager um = AppController.getInstance().getUserManager();
+		User user =um.getUser();
 		user.setUsername(msg.getEmail());
 		user.setEmail(msg.getEmail());
 		user.setPassword(msg.getPassword());
@@ -62,13 +67,13 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				Log.d("bmob", "succeed login");
+				listener.onSuccess();
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				Log.d("bmob", arg1);
+				listener.onFailure(arg1);
 			}
 		});
 	}
