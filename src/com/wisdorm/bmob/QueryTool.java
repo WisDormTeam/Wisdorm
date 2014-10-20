@@ -35,7 +35,5 @@ public class QueryTool {
 		    	DebugTool.getInstance().log(msg);
 		    }
 		});
-		
-		
 	}
 }

@@ -2,6 +2,7 @@ package com.wisdorm.common;
 
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.datatype.BmobPointer;
 
 public class User extends BmobUser{
 	//private String username;
@@ -9,20 +10,13 @@ public class User extends BmobUser{
 	//private String password;
 	
 	//above all is default attribute in BmobUser
-	private String nickName = null;
+	private String nickname = null;
 	private BmobFile icon = null;
-	private String dormId = null;
+	private String dormid = null;
+	private Dorm dorm = null;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	
-	public String getNickName() {
-		return nickName;
 	}
 	
 	public BmobFile getIcon() {
@@ -34,10 +28,18 @@ public class User extends BmobUser{
 	}
 	
 	public String getDormId() {
-		return dormId;
+		return dormid;
 	}
 	
 	public void setDormId(String dormId) {
-		this.dormId = dormId;
+		this.dormid = dormId;
+	}
+	
+	public Dorm getDorm() {
+		return dorm;
+	}
+	
+	public void setDorm(Dorm dorm) {
+		this.dorm = dorm;
 	}
 }
