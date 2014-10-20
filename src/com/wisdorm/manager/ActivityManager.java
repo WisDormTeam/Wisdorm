@@ -1,6 +1,6 @@
 package com.wisdorm.manager;
 
-import com.wisdorm.activity.LoginActivity;
+import com.wisdorm.ui.LoginActivity;
 
 public class ActivityManager {
 	

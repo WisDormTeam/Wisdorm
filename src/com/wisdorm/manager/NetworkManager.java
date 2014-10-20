@@ -3,13 +3,13 @@ package com.wisdorm.manager;
 import android.util.Log;
 import cn.bmob.v3.listener.SaveListener;
 
-import com.wisdorm.activity.LoginActivity;
 import com.wisdorm.base.MessageBase;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.QueryTool;
 import com.wisdorm.common.User;
 import com.wisdorm.common.Message.LoginMessage;
 import com.wisdorm.common.Message.RegisterMessage;
+import com.wisdorm.ui.LoginActivity;
 
 public class NetworkManager {
 	
