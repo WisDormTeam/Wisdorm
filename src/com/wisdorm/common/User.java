@@ -9,12 +9,20 @@ public class User extends BmobUser{
 	//private String password;
 	
 	//above all is default attribute in BmobUser
-	
+	private String nickName = null;
 	private BmobFile icon = null;
 	private String dormId = null;
 	
 	public User() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public void setNickName(String nickName) {
+		this.nickName = nickName;
+	}
+	
+	public String getNickName() {
+		return nickName;
 	}
 	
 	public BmobFile getIcon() {

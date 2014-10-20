@@ -1,5 +1,6 @@
 package com.wisdorm.manager;
 
+import android.util.Log;
 import cn.bmob.v3.listener.SaveListener;
 
 import com.wisdorm.activity.LoginActivity;
@@ -39,6 +40,7 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
+				
 				listener.onSuccess();
 			}
 			
@@ -52,7 +54,7 @@ public class NetworkManager {
 	
 	private void register(RegisterMessage msg,final MytListener listener){
 		User user = AppController.getInstance().getUserManager().getUser();
-		user.setUsername(msg.getUsername());
+		user.setUsername(msg.getEmail());
 		user.setEmail(msg.getEmail());
 		user.setPassword(msg.getPassword());
 		user.signUp(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
@@ -60,14 +62,13 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				
-				listener.onSuccess();
+				Log.d("bmob", "succeed login");
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				listener.onFailure(arg1);
+				Log.d("bmob", arg1);
 			}
 		});
 	}

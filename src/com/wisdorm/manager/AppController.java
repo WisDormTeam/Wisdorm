@@ -22,6 +22,7 @@ public class AppController {
 	//initialize managers or controllers here
 	public void init() {
 		networkManager = new NetworkManager();
+		userManager = new UserManager();
 	}
 	
 	public NetworkManager getNetworkManager() {

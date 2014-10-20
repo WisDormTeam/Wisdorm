@@ -79,8 +79,9 @@ public class LoginActivity extends Activity {
 				@Override
 				public void onClick(View arg0) {
 					Log.d("bmob", "Test Register");
+					System.out.println("suasaasasa");
 					NetworkManager nm = AppController.getInstance().getNetworkManager();
-					nm.send(new RegisterMessage("CBUU","407471516@qq.com","123456"),new MytListener() {
+					nm.send(new RegisterMessage("407471516@qq.com","123456"),new MytListener() {
 						
 						@Override
 						public void onSuccess() {
