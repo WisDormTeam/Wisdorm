@@ -7,6 +7,7 @@ import com.example.wisdorm.R.menu;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
 import com.wisdorm.common.Message.LoginMessage;
+import com.wisdorm.manager.ActivityManager;
 import com.wisdorm.manager.AppController;
 import com.wisdorm.manager.NetworkManager;
 import com.wisdorm.ui.LoginActivity.LoginClickListener;
@@ -44,6 +45,8 @@ public class CreateDormActivity extends Activity {
 		
 		btn_createdorm.setOnClickListener(new CreateClickListener());
 		btn_havedorm.setOnClickListener(new HaveClickListener());
+		
+		ActivityManager.getInstance().setCreateDormActivity(this);
 	}
 
 	@Override

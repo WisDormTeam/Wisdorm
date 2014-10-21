@@ -6,6 +6,7 @@ import com.example.wisdorm.R.layout;
 import com.example.wisdorm.R.menu;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.common.Message.CreatDormMessage;
+import com.wisdorm.manager.ActivityManager;
 import com.wisdorm.manager.AppController;
 import com.wisdorm.manager.NetworkManager;
 
@@ -39,6 +40,8 @@ public class RegisterDormActivity extends Activity {
 		dormname = (EditText)findViewById(R.id.dormname);
 		
 		btn_ok.setOnClickListener(new RegisterClickListener());
+		
+		ActivityManager.getInstance().setRegisterDormActivity(this);
 	}
 
 	@Override
