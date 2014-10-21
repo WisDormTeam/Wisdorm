@@ -32,6 +32,7 @@ public class CreateDormActivity extends Activity {
 	private Button btn_havedorm;
 	private Button btn_createdorm;
 	private EditText dormidText;
+	private String dormid;
 	
 
 	@Override
@@ -90,6 +91,14 @@ public class CreateDormActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
+			dormid = dormidText.getText().toString();
+			if(TextUtils.isEmpty(dormid))
+			{
+				Toast.makeText(CreateDormActivity.this, "dormId can't be empty",
+						Toast.LENGTH_LONG).show();
+			} else {
+				
+			}
 		}
 	}
 		

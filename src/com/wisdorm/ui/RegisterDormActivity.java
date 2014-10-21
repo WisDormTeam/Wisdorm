@@ -74,23 +74,25 @@ public class RegisterDormActivity extends Activity {
 			{
 				Toast.makeText(RegisterDormActivity.this, "name and nop can't be null",
 						Toast.LENGTH_LONG).show();
-			}
-			
-			try{
-		         nop=Integer.parseInt(dormnop.getText().toString());
-		        	//data=myEditText.getText();
-		        }catch (Exception e){
-		        	e.printStackTrace();
-		        }
-		    NetworkManager nm = AppController.getInstance().getNetworkManager();
-		    nm.send(new CreatDormMessage(name,nop), new MytListener() {
+			} else {
+			    try{
+		             nop=Integer.parseInt(dormnop.getText().toString());
+		            	//data=myEditText.getText();
+		            }catch (Exception e){
+		        	    e.printStackTrace();
+		            }
+		        NetworkManager nm = AppController.getInstance().getNetworkManager();
+		        nm.send(new CreatDormMessage(name,nop), new MytListener() {
 				
-				@Override
-				public void onSuccess() {
-					// TODO Auto-generated method stub
-					Toast.makeText(RegisterDormActivity.this, "success",
-							Toast.LENGTH_LONG).show();
-				}
+				    @Override
+				    public void onSuccess() {
+					    // TODO Auto-generated method stub
+					    Toast.makeText(RegisterDormActivity.this, "success",
+						    	Toast.LENGTH_LONG).show();
+					    Intent intent = new Intent(RegisterDormActivity.this,MainActivity.class);
+					    startActivity(intent);
+				    }
+		  
 				
 				@Override
 				public void onFailure(String failMsg) {
@@ -100,7 +102,8 @@ public class RegisterDormActivity extends Activity {
 					
 				}
 			});
+		        
 		}
-		
+	  }
 	}
 }
