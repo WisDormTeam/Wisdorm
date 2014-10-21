@@ -85,6 +85,7 @@ public class NetworkManager {
 		final Dorm dorm = new Dorm();
 		dorm.setCount(msg.getNop());
 		dorm.setDormName(msg.getDormname());
+		
 		dorm.save(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
 			@Override
 			public void onSuccess() {
@@ -94,6 +95,7 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
+				
 				listener.onFailure(arg1);
 			}
 		});

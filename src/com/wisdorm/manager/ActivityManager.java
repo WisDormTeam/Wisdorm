@@ -1,8 +1,10 @@
 package com.wisdorm.manager;
 
+import com.wisdorm.ui.AttendDormActivity;
 import com.wisdorm.ui.CreateDormActivity;
 import com.wisdorm.ui.LoginActivity;
 import com.wisdorm.ui.MainActivity;
+import com.wisdorm.ui.RegisterDormActivity;
 
 public class ActivityManager {
 	
@@ -11,6 +13,9 @@ public class ActivityManager {
 	private LoginActivity loginActivity = null;
 	private CreateDormActivity createDormActivity = null;
 	private MainActivity mainActivity = null;
+	private RegisterDormActivity registerDormActivity = null;
+	private AttendDormActivity attendDormActivity = null;
+	
 	
 	public static ActivityManager getInstance() {
 		if(instance == null){
@@ -41,5 +46,22 @@ public class ActivityManager {
 	
 	public void setMainActivity(MainActivity mainActivity) {
 		this.mainActivity = mainActivity;
+	}
+	
+	public void setAttendDormActivity(AttendDormActivity attendDormActivity) {
+		this.attendDormActivity = attendDormActivity;
+	}
+	
+	public AttendDormActivity getAttendDormActivity() {
+		return attendDormActivity;
+	}
+	
+	public void setRegisterDormActivity(
+			RegisterDormActivity registerDormActivity) {
+		this.registerDormActivity = registerDormActivity;
+	}
+	
+	public RegisterDormActivity getRegisterDormActivity() {
+		return registerDormActivity;
 	}
 }

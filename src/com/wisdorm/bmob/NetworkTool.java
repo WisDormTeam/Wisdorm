@@ -36,13 +36,14 @@ public class NetworkTool {
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
+				DebugTool.getInstance().log(arg1);
 				listener.onFailure(arg1);
 			}
 		});
 	}
 	
 	public void addDormmate(String dormId,final User user,final MytListener listener) {
-		final Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+		final Dorm dorm = new Dorm();
 		BmobRelation users = new BmobRelation();
 		users.add(user);
 		dorm.setDormMates(users);
@@ -57,6 +58,7 @@ public class NetworkTool {
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
+				DebugTool.getInstance().log(arg1);
 				listener.onFailure(arg1);
 			}
 		});
