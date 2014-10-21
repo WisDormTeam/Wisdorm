@@ -65,8 +65,8 @@ public class LoginActivity extends Activity {
 		ActivityManager.getInstance().setLoginActivity(this);
 		
 		//test
-		//Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
-		//startActivity(intent);
+		Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
+		startActivity(intent);
 	}
 	
 	private void initBmob(){
@@ -82,7 +82,7 @@ public class LoginActivity extends Activity {
 			pass = password.getText().toString();
 			if(TextUtils.isEmpty(name) || TextUtils.isEmpty(pass))
 			{
-				Toast.makeText(LoginActivity.this, "ÓÃ»§Ãû»òÕßÃÜÂë²»ÄÜÎª¿Õ",
+				Toast.makeText(LoginActivity.this, "ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ë²»ï¿½ï¿½Îªï¿½ï¿½",
 						Toast.LENGTH_LONG).show();
 			}
 		
@@ -109,7 +109,7 @@ public class LoginActivity extends Activity {
 				public void onFailure(String failMsg) {
 					// TODO Auto-generated method stub
 					Log.v("debug", "failure");
-					Toast.makeText(LoginActivity.this, "µÇÂ½Ê§°Ü"+failMsg,
+					Toast.makeText(LoginActivity.this, "ï¿½ï¿½Â½Ê§ï¿½ï¿½"+failMsg,
 							Toast.LENGTH_LONG).show();
 				}
 			});

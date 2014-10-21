@@ -1,18 +1,25 @@
 package com.wisdorm.ui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.widget.RadioButton;
+import android.support.v4.app.FragmentActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.RadioGroup;
 
-import cn.volley.toolbox.AndroidAuthenticator;
-
 import com.example.wisdorm.R;
+import com.wisdorm.ui.fragment.AlarmFragment;
+import com.wisdorm.ui.fragment.BaseFragment;
+import com.wisdorm.ui.fragment.FragmentAdapter;
+import com.wisdorm.ui.fragment.TimeAxisFragment;
 
-public class MainActivity extends Activity{
-	private FragmentTransaction fragmentTransaction;
+public class MainActivity extends FragmentActivity{
+	private FragmentAdapter adapter = null;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -21,46 +28,34 @@ public class MainActivity extends Activity{
 		initFragment();
 	}
 	
-	private void initFragment() {
-		fragmentTransaction = getFragmentManager().beginTransaction();
-		TimeAxisFragment fragment = new TimeAxisFragment();
-		fragmentTransaction.add(R.id.maincontent, fragment);
-		fragmentTransaction.commit();
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.main, menu);
 		
-		RadioButton button = (RadioButton)findViewById(R.id.timeAxis);
-		button.setBackgroundResource(R.drawable.indexchoosed);
+		return true;
 	}
 	
-	private class RadioGroupListener implements 
-		android.widget.RadioGroup.OnCheckedChangeListener {
-		@Override
-		public void onCheckedChanged(RadioGroup arg0, int arg1) {
-			resetButton();
-			switch (arg1) {
-			case R.id.timeAxis:
-				turnToTimeAxis();
-				break;
-			case R.id.alarm :
-				turnToAlarm();
-			default:
-				break;
-			}
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.add:
+				adapter.addItem();
+			break;
+
+		default:
+			break;
 		}
 		
+		return true;
 	}
 	
-	private void resetButton() {
-		findViewById(R.id.timeAxis).setBackgroundResource(R.drawable.index);
-		findViewById(R.id.alarm).setBackgroundResource(R.drawable.article);
-		findViewById(R.id.setting).setBackgroundResource(R.drawable.ad);
+	private void initFragment() {
+		List<BaseFragment> fragments = new ArrayList<BaseFragment>();
+		fragments.add(new TimeAxisFragment());
+		fragments.add(new AlarmFragment());
+		fragments.add(new TimeAxisFragment());
 		
-	}
-	
-	private void turnToTimeAxis() {
-		findViewById(R.id.timeAxis).setBackgroundResource(R.drawable.indexchoosed);
-	}
-	
-	private void turnToAlarm() {
-		findViewById(R.id.alarm).setBackgroundResource(R.drawable.articlechoosed);
+		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
+		adapter = new FragmentAdapter(this, fragments, R.id.maincontent, radioGroup);
 	}
 }
