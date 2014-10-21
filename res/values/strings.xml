@@ -7,5 +7,7 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_creat_dorm">CreatDormActivity</string>
     <string name="title_activity_create_dorm">CreateDormActivity</string>
+    <string name="title_activity_register_dorm">RegisterDormActivity</string>
+    <string name="title_activity_attend_dorm">AttendDormActivity</string>
 
 </resources>

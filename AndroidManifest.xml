@@ -42,6 +42,14 @@
             android:name="com.wisdorm.ui.CreateDormActivity"
             android:label="@string/title_activity_create_dorm" >
         </activity>
+        <activity
+            android:name="com.wisdorm.ui.RegisterDormActivity"
+            android:label="@string/title_activity_register_dorm" >
+        </activity>
+        <activity
+            android:name = "com.wisdorm.ui.AttendDormActivityndDormActivity"
+            android:label="@string/title_activity_attend_dorm" >
+        </activity>
     </application>
 
 </manifest>

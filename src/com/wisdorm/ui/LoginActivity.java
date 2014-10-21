@@ -100,7 +100,7 @@ public class LoginActivity extends Activity {
 					proDialog.dismiss();
 					Toast.makeText(LoginActivity.this, "login success",
 					Toast.LENGTH_LONG).show();
-					DebugTool.getInstance().log(AppController.getInstance().getUserManager().getUser().getNickname());
+					
 					if(AppController.getInstance().getUserManager().getUser().getDormId() == null)
 					{
 						DebugTool.getInstance().log("null!!!!!!");

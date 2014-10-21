@@ -12,39 +12,32 @@
         android:id="@+id/createdorm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="122dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="48dp"
         android:text="Create your dorm" />
 
     <EditText
-        android:id="@+id/editText1"
+        android:id="@+id/dormidText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/havedorm"
-        android:layout_alignBottom="@+id/havedorm"
         android:layout_alignRight="@+id/createdorm"
-        android:layout_toRightOf="@+id/havedorm"
-        android:ems="10" >
+        android:layout_centerVertical="true"
+        android:ems="10" />
 
-        <requestFocus />
-    </EditText>
-
-    <TextView
+    <Button
         android:id="@+id/havedorm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:text="I have a dorm" />
+        android:layout_alignBottom="@+id/dormidText"
+        android:layout_toRightOf="@+id/dormidText"
+        android:text="go" />
 
-    <Button
-        android:id="@+id/button1"
+    <TextView
+        android:id="@+id/textview1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editText1"
-        android:layout_toRightOf="@+id/editText1"
-        android:text="go" />
+        android:layout_above="@+id/havedorm"
+        android:layout_alignLeft="@+id/dormidText"
+        android:text="I have a dorm" />
 
 </RelativeLayout>
