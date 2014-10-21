@@ -12,6 +12,7 @@ import com.wisdorm.common.User;
 import com.wisdorm.common.Message.AttendDormMessage;
 import com.wisdorm.common.Message.CreatDormMessage;
 import com.wisdorm.common.Message.LoginMessage;
+import com.wisdorm.common.Message.QueryDormMessage;
 import com.wisdorm.common.Message.RegisterMessage;
 
 public class NetworkManager {
@@ -34,57 +35,55 @@ public class NetworkManager {
 		case MessageBase.MSG_ATTENDDORM:
 			attendDorm((AttendDormMessage)msgBase, listener);
 			break;
+		case MessageBase.MSG_QUERYDORM:
+			QueryDorm((QueryDormMessage)msgBase,listener);
+			break;
 		case MessageBase.MSG_ERROR:
 			break;
 		}
 	}
 	
-	private void attendDorm(AttendDormMessage msg, final MytListener listener) {
+	private void QueryDorm(QueryDormMessage msg, MytListener listener) {
+		// TODO Auto-generated method stub
 		final String dormId = msg.getDormId();
 		final UserManager um = AppController.getInstance().getUserManager();
-		um.getNetworkTool().queryDormById(dormId, new MytListener() {
+		um.getNetworkTool().queryDormById(dormId,listener);
+	}
+
+	private void attendDorm(AttendDormMessage msg, final MytListener listener) {
+		final UserManager um = AppController.getInstance().getUserManager();
+		final Dorm dorm = um.getDorm();
+		final User user = um.getUser();
+		dorm.getDormMates().add(user);
+		dorm.update(ActivityManager.getInstance().getCreateDormActivity(),dorm.getObjectId(),new UpdateListener() {
+			
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				final Dorm dorm = um.getDorm();
-				final User user = um.getUser();
-				dorm.getDormMates().add(user);
-				dorm.update(ActivityManager.getInstance().getCreateDormActivity(),dormId, new UpdateListener() {
+				user.setDorm(dorm);
+				user.update(ActivityManager.getInstance().getAttendDormActivity(), new UpdateListener() {
 					
 					@Override
 					public void onSuccess() {
 						// TODO Auto-generated method stub
-						user.setDorm(dorm);
-						DebugTool.getInstance().log(dorm.getObjectId());
-						user.update(ActivityManager.getInstance().getCreateDormActivity(), new UpdateListener() {
-							
-							@Override
-							public void onSuccess() {
-								// TODO Auto-generated method stub
-								listener.onSuccess();
-							}
-							
-							@Override
-							public void onFailure(int arg0, String arg1) {
-								// TODO Auto-generated method stub
-								listener.onFailure(arg1);
-							}
-						});
+						listener.onSuccess();
 					}
 					
 					@Override
 					public void onFailure(int arg0, String arg1) {
 						// TODO Auto-generated method stub
+						listener.onFailure(arg1);
 					}
 				});
 			}
 			
 			@Override
-			public void onFailure(String failMsg) {
+			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
 				
 			}
 		});
+				
 
 	}
 
