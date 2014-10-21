@@ -1,6 +1,6 @@
 package com.wisdorm.manager;
 
-import com.wisdorm.bmob.QueryTool;
+import com.wisdorm.bmob.NetworkTool;
 import com.wisdorm.common.Dorm;
 import com.wisdorm.common.User;
 
@@ -8,17 +8,17 @@ public class UserManager {
 	private User user = null;
 	private Dorm dorm = null;
 	
-	private QueryTool queryTool = null;
+	private NetworkTool networkTool = null;
 	
 	public UserManager() {
 		// TODO Auto-generated constructor stub
 		user = new User();
 		dorm = new Dorm();
-		queryTool = new QueryTool();
+		networkTool = new NetworkTool();
 	}
 	
-	public QueryTool getQueryTool() {
-		return queryTool;
+	public NetworkTool getNetworkTool() {
+		return networkTool;
 	}
 	
 	public void setDorm(Dorm dorm) {

@@ -6,7 +6,7 @@ import cn.bmob.v3.listener.SaveListener;
 import com.wisdorm.base.MessageBase;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
-import com.wisdorm.bmob.QueryTool;
+import com.wisdorm.bmob.NetworkTool;
 import com.wisdorm.common.Dorm;
 import com.wisdorm.common.User;
 import com.wisdorm.common.Message.CreatDormMessage;
@@ -26,12 +26,10 @@ public class NetworkManager {
 			login((LoginMessage)msgBase,listener);
 			break;
 		case MessageBase.MSG_REGISTER:
-			//register((RegisterMessage)msgBase, listener);
-			login(new LoginMessage("", ""),listener);
+			register((RegisterMessage)msgBase, listener);
 			break;
-		
 		case MessageBase.MSG_CREATDORM:
-			
+			createDorm((CreatDormMessage)msgBase, listener);
 			break;
 		case MessageBase.MSG_ERROR:
 			break;
@@ -49,7 +47,7 @@ public class NetworkManager {
 		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
 			@Override
 			public void onSuccess() {
-				um.getQueryTool().queryUserById(user.getObjectId(),listener);
+				um.getNetworkTool().queryUserById(user.getObjectId(),listener);
 			}
 			
 			@Override
@@ -71,7 +69,7 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				um.getQueryTool().queryUserById(user.getObjectId(),listener);
+				um.getNetworkTool().queryUserById(user.getObjectId(),listener);
 			}
 			
 			@Override
@@ -84,15 +82,13 @@ public class NetworkManager {
 
 	private void createDorm(CreatDormMessage msg,final MytListener listener){
 		final UserManager um = AppController.getInstance().getUserManager();
-		Dorm dorm = new Dorm();
+		final Dorm dorm = new Dorm();
 		dorm.setCount(msg.getNop());
 		dorm.setDormName(msg.getDormname());
 		dorm.save(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
-			
 			@Override
 			public void onSuccess() {
-				
-				listener.onSuccess();
+				um.getNetworkTool().addDormmate(dorm.getObjectId(), um.getUser(), listener);
 			}
 			
 			@Override
