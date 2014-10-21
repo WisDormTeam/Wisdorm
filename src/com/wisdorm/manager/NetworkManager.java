@@ -42,21 +42,14 @@ public class NetworkManager {
 		
 		final UserManager um = AppController.getInstance().getUserManager();
 		final User user =um.getUser();
-		final String username = msg.getUsername();
 		
-		user.setUsername("CBUU");
-		user.setPassword("123456");
+		user.setUsername(msg.getUsername());
+		user.setPassword(msg.getPassword());
 		
 		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
 			@Override
 			public void onSuccess() {
-				// TODO Auto-generated method stub
-				//um.getQueryTool().queryUser("CBUU");
-				//DebugTool.getInstance().log(AppController.getInstance().getUserManager().getUser().getNickname());
 				um.getQueryTool().queryUserById(user.getObjectId(),listener);
-				
-				//DebugTool.getInstance().log(user.getObjectId());
-				
 			}
 			
 			@Override
