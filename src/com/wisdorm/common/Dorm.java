@@ -3,38 +3,40 @@ package com.wisdorm.common;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import android.R.integer;
+
 
 import cn.bmob.v3.BmobObject;
+import cn.bmob.v3.datatype.BmobRelation;
 
 public class Dorm extends BmobObject{
-	private String dormName = null;
-	private ArrayList<User> dormMates = null;
-	private String dormId = null;
+	private String dormname = null;
+	private BmobRelation dormmates = null;
+	private int count = 0;
 	
 	public Dorm() {
-		dormMates = new ArrayList<User>();
 	}
 	
-	public String getDormId() {
-		return dormId;
-	}
-	
-	public ArrayList<User> getDormMates() {
-		return dormMates;
+	public BmobRelation getDormMates() {
+		return dormmates;
 	}
 	
 	public String getDormName() {
-		return dormName;
+		return dormname;
 	}
 	
-	public void setDormId(String dormId) {
-		this.dormId = dormId;
-	}
-	
-	public void setDormMates(ArrayList<User> dormMates) {
-		this.dormMates = dormMates;
+	public void setDormMates(BmobRelation dormMates) {
+		this.dormmates = dormMates;
 	}
 	public void setDormName(String dormName) {
-		this.dormName = dormName;
+		this.dormname = dormName;
+	}
+	
+	public int getCount() {
+		return count;
+	}
+	
+	public void setCount(int count) {
+		this.count = count;
 	}
 }
