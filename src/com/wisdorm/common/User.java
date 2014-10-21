@@ -42,4 +42,12 @@ public class User extends BmobUser{
 	public void setDorm(Dorm dorm) {
 		this.dorm = dorm;
 	}
+	
+	public String getNickname() {
+		return nickname;
+	}
+	
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
 }

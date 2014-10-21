@@ -4,7 +4,9 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+import cn.bmob.v3.listener.GetListener;
 
+import com.wisdorm.base.MytListener;
 import com.wisdorm.common.User;
 import com.wisdorm.manager.ActivityManager;
 import com.wisdorm.manager.AppController;
@@ -19,21 +21,22 @@ public class QueryTool {
 	
 	
 	//query the info of the User in the Bmob and store in the UserManager
-	public void queryUser(String username) {
+	public void queryUserById(String objectId,final MytListener listener) {
 		BmobQuery<User> query = new BmobQuery<User>();
-		query.addWhereEqualTo("username", username);
-		query.findObjects(ActivityManager.getInstance().getLoginActivity(), new FindListener<User>() {
-		    @Override
-		    public void onSuccess(List<User> object) {
-		        // TODO Auto-generated method stub
-		    	User user = object.get(0);
-		    	AppController.getInstance().getUserManager().setUser(user);
-		    }
-		    @Override
-		    public void onError(int code, String msg) {
-		        // TODO Auto-generated method stub
-		    	DebugTool.getInstance().log(msg);
-		    }
+		query.getObject(ActivityManager.getInstance().getLoginActivity(),objectId, new GetListener<User>() {
+			
+			@Override
+			public void onSuccess(User user) {
+				// TODO Auto-generated method stub
+				AppController.getInstance().getUserManager().setUser(user);
+				listener.onSuccess();
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				listener.onSuccess();
+			}
 		});
 	}
 }

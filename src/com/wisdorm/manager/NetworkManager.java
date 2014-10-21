@@ -26,7 +26,8 @@ public class NetworkManager {
 			login((LoginMessage)msgBase,listener);
 			break;
 		case MessageBase.MSG_REGISTER:
-			register((RegisterMessage)msgBase, listener);
+			//register((RegisterMessage)msgBase, listener);
+			login(new LoginMessage("", ""),listener);
 			break;
 		
 		case MessageBase.MSG_CREATDORM:
@@ -38,19 +39,24 @@ public class NetworkManager {
 	}
 	
 	private void login(LoginMessage msg,final MytListener listener) {
+		
 		final UserManager um = AppController.getInstance().getUserManager();
-		final Dorm dorm = new Dorm();
-		dorm.setCount(3);
-		dorm.setDormName("221");
-		dorm.save(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
-			
+		final User user =um.getUser();
+		final String username = msg.getUsername();
+		
+		user.setUsername("CBUU");
+		user.setPassword("123456");
+		
+		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				//Dorm
-				//um.setDorm(dorm);
-				DebugTool.getInstance().log(dorm.getObjectId());
-				listener.onSuccess();
+				//um.getQueryTool().queryUser("CBUU");
+				//DebugTool.getInstance().log(AppController.getInstance().getUserManager().getUser().getNickname());
+				um.getQueryTool().queryUserById(user.getObjectId(),listener);
+				
+				//DebugTool.getInstance().log(user.getObjectId());
+				
 			}
 			
 			@Override
@@ -59,34 +65,11 @@ public class NetworkManager {
 				listener.onFailure(arg1);
 			}
 		});
-		
-//		final UserManager um = AppController.getInstance().getUserManager();
-//		User user =um.getUser();
-//		final String username = msg.getUsername();
-//		
-//		user.setUsername(msg.getUsername());
-//		user.setPassword(msg.getPassword());
-//		
-//		user.login(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
-//			@Override
-//			public void onSuccess() {
-//				// TODO Auto-generated method stub
-//				um.getQueryTool().queryUser(username);
-//				listener.onSuccess();
-//			}
-//			
-//			@Override
-//			public void onFailure(int arg0, String arg1) {
-//				// TODO Auto-generated method stub
-//				listener.onFailure(arg1);
-//			}
-//		});
 	}
 	
 	private void register(RegisterMessage msg,final MytListener listener){
 		final UserManager um = AppController.getInstance().getUserManager();
-		User user =	new User();
-		final String username = msg.getEmail();
+		final User user = new User();
 		user.setUsername(msg.getEmail());
 		user.setEmail(msg.getEmail());
 		user.setPassword(msg.getPassword());
@@ -95,8 +78,7 @@ public class NetworkManager {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				um.getQueryTool().queryUser(username);
-				listener.onSuccess();
+				um.getQueryTool().queryUserById(user.getObjectId(),listener);
 			}
 			
 			@Override
@@ -116,9 +98,7 @@ public class NetworkManager {
 			
 			@Override
 			public void onSuccess() {
-				// TODO Auto-generated method stub
-				//Dorm
-				//um.setDorm(dorm);
+				
 				listener.onSuccess();
 			}
 			
