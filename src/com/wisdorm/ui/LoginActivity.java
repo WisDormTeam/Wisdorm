@@ -42,7 +42,7 @@ public class LoginActivity extends Activity {
 	
 	private static final String TAG_POST = null;
 	public EditText emailText, password;
-	public Button btn_login;
+	public Button btn_login,btn_register;
 	public CheckBox checkPwd;
 	private String email;
 	private String pass;
@@ -57,8 +57,10 @@ public class LoginActivity extends Activity {
 		emailText = (EditText)findViewById(R.id.emailbox);  
 		password = (EditText)findViewById(R.id.password);
 		btn_login = (Button)findViewById(R.id.login);
+		btn_register = (Button)findViewById(R.id.register);
 		
 		btn_login.setOnClickListener(new LoginClickListener());
+		btn_register.setOnClickListener(new RegisterClickListener());
 	
 		//init Bmob here
 		initBmob();
@@ -74,8 +76,8 @@ public class LoginActivity extends Activity {
 		Bmob.initialize(this, "81ea98fa1507d9f34639cc0b138770fb");
 	}
 	
+	
 	public class LoginClickListener implements View.OnClickListener{
-
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
@@ -83,10 +85,10 @@ public class LoginActivity extends Activity {
 			pass = password.getText().toString();
 			if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
 			{
-				Toast.makeText(LoginActivity.this, "邮箱或者密码不能为空",
+				Toast.makeText(LoginActivity.this, "Email and password can't be null",
 						Toast.LENGTH_LONG).show();
 			}
-			proDialog = ProgressDialog.show(LoginActivity.this,"请稍候","正在登陆...", true, true);   
+			proDialog = ProgressDialog.show(LoginActivity.this,"waiting","loading", true, true);   
 			
 			NetworkManager nm = AppController.getInstance().getNetworkManager();
 			nm.send(new LoginMessage(email, pass), new MytListener() {
@@ -96,19 +98,17 @@ public class LoginActivity extends Activity {
 					// TODO Auto-generated method stub
 					Log.v("debug", "login success");
 					proDialog.dismiss();
-					Toast.makeText(LoginActivity.this, "登陆成功",
+					Toast.makeText(LoginActivity.this, "login success",
 					Toast.LENGTH_LONG).show();
 					
 					if(AppController.getInstance().getUserManager().getUser().getDormId() == null)
 					{
 						DebugTool.getInstance().log("null!!!!!!");
-						//Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
-						//startActivity(intent);
+						Intent intent = new Intent(LoginActivity.this, CreateDormActivity.class);
+						startActivity(intent);
 					}
 					else {
 						DebugTool.getInstance().log("dsdsds");
-						Toast.makeText(LoginActivity.this, "登陆成功",
-								Toast.LENGTH_LONG).show();
 						Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 						startActivity(intent);
 					}
@@ -118,7 +118,8 @@ public class LoginActivity extends Activity {
 				public void onFailure(String failMsg) {
 					// TODO Auto-generated method stub
 					Log.v("debug", "login failure");
-					Toast.makeText(LoginActivity.this, "登陆失败"+failMsg,
+					proDialog.dismiss();
+					Toast.makeText(LoginActivity.this, "login failed"+failMsg,
 							Toast.LENGTH_LONG).show();
 				}
 			});
@@ -126,6 +127,7 @@ public class LoginActivity extends Activity {
 		}
 
 	}
+	
 	
 	public class RegisterClickListener implements View.OnClickListener{		
 		@Override
@@ -135,7 +137,7 @@ public class LoginActivity extends Activity {
 			pass = password.getText().toString();
 			if(TextUtils.isEmpty(email) || TextUtils.isEmpty(pass))
 			{
-				Toast.makeText(LoginActivity.this, "邮箱或者密码不能为空",
+				Toast.makeText(LoginActivity.this, "Email and password can't be null",
 						Toast.LENGTH_LONG).show();
 			}
 		
@@ -146,19 +148,20 @@ public class LoginActivity extends Activity {
 				public void onSuccess() {
 					// TODO Auto-generated method stub
 					Log.v("debug", "register success");
-					Toast.makeText(LoginActivity.this, "注册成功",
+					Toast.makeText(LoginActivity.this, "register success",
 							Toast.LENGTH_LONG).show();
 					
-					//Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
-					//startActivity(intent);
+					Intent intent = new Intent(LoginActivity.this, CreateDormActivity.class);
+					startActivity(intent);
 				}
 				
 				@Override
 				public void onFailure(String failMsg) {
 					// TODO Auto-generated method stub
-					Log.v("debug", "register failure");
+					Log.v("fail", "register failure" + failMsg);
 					Toast.makeText(LoginActivity.this, "注册失败"+failMsg,
 							Toast.LENGTH_LONG).show();
+					
 				}
 			});
 			
