@@ -1,18 +1,18 @@
 package com.wisdorm.manager;
 
-import android.util.Log;
+import cn.bmob.v3.datatype.BmobRelation;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UpdateListener;
 
 import com.wisdorm.base.MessageBase;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
-import com.wisdorm.bmob.NetworkTool;
 import com.wisdorm.common.Dorm;
 import com.wisdorm.common.User;
+import com.wisdorm.common.Message.AttendDormMessage;
 import com.wisdorm.common.Message.CreatDormMessage;
 import com.wisdorm.common.Message.LoginMessage;
 import com.wisdorm.common.Message.RegisterMessage;
-import com.wisdorm.ui.LoginActivity;
 
 public class NetworkManager {
 	
@@ -31,11 +31,63 @@ public class NetworkManager {
 		case MessageBase.MSG_CREATDORM:
 			createDorm((CreatDormMessage)msgBase, listener);
 			break;
+		case MessageBase.MSG_ATTENDDORM:
+			attendDorm((AttendDormMessage)msgBase, listener);
+			break;
 		case MessageBase.MSG_ERROR:
 			break;
 		}
 	}
 	
+	private void attendDorm(AttendDormMessage msg, final MytListener listener) {
+		final String dormId = msg.getDormId();
+		final UserManager um = AppController.getInstance().getUserManager();
+		um.getNetworkTool().queryDormById(dormId, new MytListener() {
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				final Dorm dorm = um.getDorm();
+				final User user = um.getUser();
+				dorm.getDormMates().add(user);
+				dorm.update(ActivityManager.getInstance().getCreateDormActivity(),dormId, new UpdateListener() {
+					
+					@Override
+					public void onSuccess() {
+						// TODO Auto-generated method stub
+						user.setDorm(dorm);
+						DebugTool.getInstance().log(dorm.getObjectId());
+						user.update(ActivityManager.getInstance().getCreateDormActivity(), new UpdateListener() {
+							
+							@Override
+							public void onSuccess() {
+								// TODO Auto-generated method stub
+								listener.onSuccess();
+							}
+							
+							@Override
+							public void onFailure(int arg0, String arg1) {
+								// TODO Auto-generated method stub
+								listener.onFailure(arg1);
+							}
+						});
+					}
+					
+					@Override
+					public void onFailure(int arg0, String arg1) {
+						// TODO Auto-generated method stub
+					}
+				});
+			}
+			
+			@Override
+			public void onFailure(String failMsg) {
+				// TODO Auto-generated method stub
+				
+			}
+		});
+
+	}
+
 	private void login(LoginMessage msg,final MytListener listener) {
 		
 		final UserManager um = AppController.getInstance().getUserManager();
