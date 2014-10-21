@@ -12,7 +12,7 @@ import cn.bmob.v3.datatype.BmobRelation;
 public class Dorm extends BmobObject{
 	private String dormname = null;
 	private BmobRelation dormmates = null;
-	private int count = 0;
+	private int count;
 	
 	public Dorm() {
 	}

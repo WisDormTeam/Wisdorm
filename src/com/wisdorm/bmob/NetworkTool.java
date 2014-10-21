@@ -25,7 +25,7 @@ public class NetworkTool {
 	public void attachDorm(String userId,Dorm dorm,final MytListener listener) {
 		User user = AppController.getInstance().getUserManager().getUser();
 		user.setDorm(dorm);
-		user.update(ActivityManager.getInstance().getCreateDormActivity(),userId, new UpdateListener() {
+		user.update(ActivityManager.getInstance().getRegisterDormActivity(),userId, new UpdateListener() {
 			
 			@Override
 			public void onSuccess() {
@@ -43,11 +43,11 @@ public class NetworkTool {
 	}
 	
 	public void addDormmate(String dormId,final User user,final MytListener listener) {
-		final Dorm dorm = new Dorm();
+		final Dorm dorm = AppController.getInstance().getUserManager().getDorm();
 		BmobRelation users = new BmobRelation();
 		users.add(user);
 		dorm.setDormMates(users);
-		dorm.update(ActivityManager.getInstance().getCreateDormActivity(),dormId, new UpdateListener() {
+		dorm.update(ActivityManager.getInstance().getRegisterDormActivity(),dormId, new UpdateListener() {
 			
 			@Override
 			public void onSuccess() {

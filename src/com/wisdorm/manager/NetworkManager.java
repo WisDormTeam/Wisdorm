@@ -83,12 +83,14 @@ public class NetworkManager {
 	private void createDorm(CreatDormMessage msg,final MytListener listener){
 		final UserManager um = AppController.getInstance().getUserManager();
 		final Dorm dorm = new Dorm();
+		
 		dorm.setCount(msg.getNop());
 		dorm.setDormName(msg.getDormname());
 		
-		dorm.save(ActivityManager.getInstance().getLoginActivity(), new SaveListener() {
+		dorm.save(ActivityManager.getInstance().getRegisterDormActivity(), new SaveListener() {
 			@Override
 			public void onSuccess() {
+				AppController.getInstance().getUserManager().setDorm(dorm);
 				um.getNetworkTool().addDormmate(dorm.getObjectId(), um.getUser(), listener);
 			}
 			
