@@ -16,6 +16,11 @@ public class DebugTool {
 		
 		//this is the debugLog tool ,before use this you should creat a filters whose tag is "debug";
 		public void log(String msg) {
-			Log.d("debug", msg);
+			if (msg==null) {
+				Log.d("debug", "this is null");
+			}else {
+				Log.d("debug", msg);
+			}
+			
 		}
 }
