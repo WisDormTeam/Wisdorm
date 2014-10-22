@@ -7,6 +7,7 @@ public class AppController {
 	//managers or controllers
 	private NetworkManager networkManager= null;
 	private UserManager userManager = null;
+	private AlarmCenter alarmManager = null;
 	
 	public static AppController getInstance() {
 		if(instance == null){
@@ -23,6 +24,8 @@ public class AppController {
 	public void init() {
 		networkManager = new NetworkManager();
 		userManager = new UserManager();
+		alarmManager = new AlarmCenter();
+		
 	}
 	
 	public NetworkManager getNetworkManager() {
@@ -31,5 +34,9 @@ public class AppController {
 	
 	public UserManager getUserManager() {
 		return userManager;
+	}
+	
+	public AlarmCenter getAlarmCenter() {
+		return alarmManager;
 	}
 }

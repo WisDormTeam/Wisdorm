@@ -9,6 +9,7 @@ public class MessageBase {
 	public static final int MSG_LOGIN = 2;
 	public static final int MSG_CREATDORM = 3;
 	public static final int MSG_ALARM_OFF = 4;
+	public static final int MSG_ATTENDDORM = 5;
 	//..............................
 	//.........another type number
 	

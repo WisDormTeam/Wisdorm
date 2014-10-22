@@ -8,6 +8,6 @@ public class AlarmPickerFragment extends DialogFragment{
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
-		return null;
+		return new TimePickerDialog(getActivity());
 	}
 }

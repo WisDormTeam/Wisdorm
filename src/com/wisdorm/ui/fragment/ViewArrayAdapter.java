@@ -27,4 +27,9 @@ public class ViewArrayAdapter extends ArrayAdapter<View> {
 		
 		return mViews.get(position);
 	}
+	
+	public void addView(View v) {
+		mViews.add(v);
+		this.notifyDataSetChanged();
+	}
 }

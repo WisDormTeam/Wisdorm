@@ -30,14 +30,18 @@ public class NetworkTool {
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				listener.onSuccess();
+				if(listener!=null){
+					listener.onSuccess();
+				}
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
 				DebugTool.getInstance().log(arg1);
-				listener.onFailure(arg1);
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
 			}
 		});
 	}
@@ -59,11 +63,34 @@ public class NetworkTool {
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
 				DebugTool.getInstance().log(arg1);
-				listener.onFailure(arg1);
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
 			}
 		});
 	}
-	
+	public void queryDormById(String objectId,final MytListener listener) {
+		BmobQuery<Dorm> query = new BmobQuery<Dorm>();
+		query.getObject(ActivityManager.getInstance().getCreateDormActivity(),objectId, new GetListener<Dorm>() {
+			
+			@Override
+			public void onSuccess(Dorm dorm) {
+				AppController.getInstance().getUserManager().setDorm(dorm);
+				if(listener!=null){
+					listener.onSuccess();
+				}
+				
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
+			}
+		});
+	}
 	
 	//query the info of the User in the Bmob and store in the UserManager
 	public void queryUserById(String objectId,final MytListener listener) {
@@ -76,13 +103,18 @@ public class NetworkTool {
 				
 				AppController.getInstance().getUserManager().setUser(user);
 				AppController.getInstance().getUserManager().setDorm(user.getDorm());
-				listener.onSuccess();
+				if(listener!=null){
+					listener.onSuccess();
+				}
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				listener.onSuccess();
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
+				
 			}
 		});
 	}
