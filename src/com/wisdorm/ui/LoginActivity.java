@@ -87,7 +87,8 @@ public class LoginActivity extends Activity {
 			{
 				Toast.makeText(LoginActivity.this, "Email and password can't be null",
 						Toast.LENGTH_LONG).show();
-			}
+			} else
+			{
 			proDialog = ProgressDialog.show(LoginActivity.this,"waiting","loading", true, true);   
 			
 			NetworkManager nm = AppController.getInstance().getNetworkManager();
@@ -123,6 +124,7 @@ public class LoginActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 				}
 			});
+		   }
 			
 		}
 
