@@ -1,5 +1,9 @@
 package com.wisdorm.common;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Alarm {
 	private int     mID;
 	private long    mTimeMillis;
@@ -34,5 +38,14 @@ public class Alarm {
 
 	public void setRepeating(boolean[] mRepeating) {
 		this.mRepeating = mRepeating;
+	}
+	
+	public String getFormatTime() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTimeInMillis(getTimeMillis());
+		Date date = (Date) calendar.getTime();
+		SimpleDateFormat sf=new SimpleDateFormat("HH:mm");
+		
+		return sf.format(date);
 	}
 }

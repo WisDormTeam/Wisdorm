@@ -68,8 +68,8 @@ public class LoginActivity extends Activity {
 		ActivityManager.getInstance().setLoginActivity(this);
 		
 		//test
-		//Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
-		//startActivity(intent);
+		Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
+		startActivity(intent);
 	}
 	
 	private void initBmob(){
@@ -159,7 +159,7 @@ public class LoginActivity extends Activity {
 				public void onFailure(String failMsg) {
 					// TODO Auto-generated method stub
 					Log.v("fail", "register failure" + failMsg);
-					Toast.makeText(LoginActivity.this, "×¢²áÊ§°Ü"+failMsg,
+					Toast.makeText(LoginActivity.this, "×¢ï¿½ï¿½Ê§ï¿½ï¿½"+failMsg,
 							Toast.LENGTH_LONG).show();
 					
 				}

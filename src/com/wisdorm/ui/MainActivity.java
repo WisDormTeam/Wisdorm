@@ -1,10 +1,15 @@
 package com.wisdorm.ui;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Fragment;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
@@ -12,6 +17,7 @@ import android.view.MenuItem;
 import android.widget.RadioGroup;
 
 import com.example.wisdorm.R;
+import com.wisdorm.manager.AppController;
 import com.wisdorm.ui.fragment.AlarmFragment;
 import com.wisdorm.ui.fragment.BaseFragment;
 import com.wisdorm.ui.fragment.FragmentAdapter;
@@ -24,7 +30,7 @@ public class MainActivity extends FragmentActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-		
+		AppController.getInstance().getAlarmCenter().setActivity(this);
 		initFragment();
 	}
 	
