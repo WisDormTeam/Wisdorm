@@ -10,18 +10,21 @@ import com.wisdorm.manager.AppController;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.text.StaticLayout;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TimePicker;
 
 public class TimePickerDialog extends Dialog{
 	 private Alarm mAlarm;
-	 
+	 private final static long MILLIS_OF_DAY = 86400000;
 	 public TimePickerDialog(Context context) {
 		 super(context);
+		 setCanceledOnTouchOutside(false);
 		 
 		 //should give a id;
-		 mAlarm = new Alarm(0);
+		 mAlarm = new Alarm();
+		 mAlarm.setTimeMillis(System.currentTimeMillis());
 	 }
 	 
 	 @Override
@@ -40,6 +43,9 @@ public class TimePickerDialog extends Dialog{
 				calendar.set(Calendar.SECOND, 0);
 				calendar.set(Calendar.MILLISECOND, 0);
 				
+				//nextDay
+				if(calendar.getTimeInMillis() < System.currentTimeMillis())
+					calendar.setTimeInMillis(calendar.getTimeInMillis() + MILLIS_OF_DAY);
 				mAlarm.setTimeMillis(calendar.getTimeInMillis());
 			}
 		});
@@ -48,7 +54,16 @@ public class TimePickerDialog extends Dialog{
 		 confirm.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
+				mAlarm.setID(System.currentTimeMillis());
 				AppController.getInstance().getAlarmCenter().addAlarm(mAlarm);
+				cancel();
+			}
+		});
+		 
+		 Button cancel = (Button)findViewById(R.id.cancel);
+		 cancel.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
 				cancel();
 			}
 		});

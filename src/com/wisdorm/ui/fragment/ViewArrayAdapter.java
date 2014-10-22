@@ -32,4 +32,12 @@ public class ViewArrayAdapter extends ArrayAdapter<View> {
 		mViews.add(v);
 		this.notifyDataSetChanged();
 	}
+	
+	public void removeView(int index) {
+		if(index < 0 || index >= mViews.size())
+			return;
+		
+		mViews.remove(index);
+		this.notifyDataSetChanged();
+	}
 }

@@ -1,22 +1,23 @@
 package com.wisdorm.ui;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.AlarmManager;
-import android.app.Fragment;
-import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.wisdorm.R;
+import com.wisdorm.manager.AlarmCenter;
 import com.wisdorm.manager.AppController;
 import com.wisdorm.ui.fragment.AlarmFragment;
 import com.wisdorm.ui.fragment.BaseFragment;
@@ -24,15 +25,19 @@ import com.wisdorm.ui.fragment.FragmentAdapter;
 import com.wisdorm.ui.fragment.TimeAxisFragment;
 
 public class MainActivity extends FragmentActivity{
-	private FragmentAdapter adapter = null;
+	private FragmentAdapter mAdapter = null;
+	public final static int ALARM_MSG = 1;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
-		AppController.getInstance().getAlarmCenter().setActivity(this);
+		
 		initFragment();
+		initAlarmCenter();
+		
 	}
+	
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -45,9 +50,8 @@ public class MainActivity extends FragmentActivity{
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.add:
-				adapter.addItem();
+				mAdapter.addItem();
 			break;
-
 		default:
 			break;
 		}
@@ -62,6 +66,10 @@ public class MainActivity extends FragmentActivity{
 		fragments.add(new TimeAxisFragment());
 		
 		RadioGroup radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
-		adapter = new FragmentAdapter(this, fragments, R.id.maincontent, radioGroup);
+		mAdapter = new FragmentAdapter(this, fragments, R.id.maincontent, radioGroup);
+	}
+	
+	private void initAlarmCenter() {
+		AppController.getInstance().getAlarmCenter().setActivity(this);
 	}
 }

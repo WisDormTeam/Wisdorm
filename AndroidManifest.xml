@@ -52,6 +52,10 @@
             android:name = "com.wisdorm.ui.AttendDormActivityndDormActivity"
             android:label="@string/title_activity_attend_dorm" >
         </activity>
+        <activity
+            android:name="com.wisdorm.ui.AlarmAlertActivity"
+            android:theme="@style/AlarmAlert">
+        </activity>
     </application>
 
 </manifest>
