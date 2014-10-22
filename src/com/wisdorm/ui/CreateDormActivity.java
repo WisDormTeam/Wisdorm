@@ -6,7 +6,9 @@ import com.example.wisdorm.R.layout;
 import com.example.wisdorm.R.menu;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
+import com.wisdorm.common.Message.AttendDormMessage;
 import com.wisdorm.common.Message.LoginMessage;
+import com.wisdorm.common.Message.QueryDormMessage;
 import com.wisdorm.manager.ActivityManager;
 import com.wisdorm.manager.AppController;
 import com.wisdorm.manager.NetworkManager;
@@ -97,6 +99,24 @@ public class CreateDormActivity extends Activity {
 				Toast.makeText(CreateDormActivity.this, "dormId can't be empty",
 						Toast.LENGTH_LONG).show();
 			} else {
+				
+				NetworkManager nm = AppController.getInstance().getNetworkManager();
+				nm.send(new QueryDormMessage(dormid), new MytListener() {
+					
+					@Override
+					public void onSuccess() {
+						// TODO Auto-generated method stub
+						Intent intent = new Intent(CreateDormActivity.this,AttendDormActivity.class);
+					    startActivity(intent);
+					}
+					
+					@Override
+					public void onFailure(String failMsg) {
+						// TODO Auto-generated method stub
+						Toast.makeText(CreateDormActivity.this, failMsg,
+								Toast.LENGTH_LONG).show();
+					}
+				});
 				
 			}
 		}

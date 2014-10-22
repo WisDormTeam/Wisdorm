@@ -12,6 +12,7 @@ import com.wisdorm.manager.NetworkManager;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -29,6 +30,7 @@ public class RegisterDormActivity extends Activity {
 	private Button btn_ok;
 	private EditText dormnop;
 	private EditText dormname;
+	private Image headImage;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class RegisterDormActivity extends Activity {
 		btn_ok =(Button)findViewById(R.id.ok);
 		dormnop = (EditText)findViewById(R.id.dormnop);
 		dormname = (EditText)findViewById(R.id.dormname);
+		headImage = null;
 		
 		btn_ok.setOnClickListener(new RegisterClickListener());
 		
@@ -82,6 +85,8 @@ public class RegisterDormActivity extends Activity {
 		        	    e.printStackTrace();
 		            }
 		        NetworkManager nm = AppController.getInstance().getNetworkManager();
+		        if(headImage == null)
+		        {
 		        nm.send(new CreatDormMessage(name,nop), new MytListener() {
 				
 				    @Override
@@ -102,8 +107,8 @@ public class RegisterDormActivity extends Activity {
 					
 				}
 			});
-		        
-		}
+		   }
+	     }
 	  }
 	}
 }
