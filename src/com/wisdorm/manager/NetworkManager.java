@@ -55,7 +55,7 @@ public class NetworkManager {
 		final Dorm dorm = um.getDorm();
 		final User user = um.getUser();
 		dorm.getDormMates().add(user);
-		dorm.update(ActivityManager.getInstance().getCreateDormActivity(),dorm.getObjectId(),new UpdateListener() {
+		dorm.update(ActivityManager.getInstance().getAttendDormActivity(),dorm.getObjectId(),new UpdateListener() {
 			
 			@Override
 			public void onSuccess() {

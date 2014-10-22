@@ -2,6 +2,9 @@ package com.wisdorm.common.Message;
 
 import com.wisdorm.base.MessageBase;
 
+
+//*this is my Message which is useless for all you~
+
 public class ContentMessage extends MessageBase{
 	private String content = null;
 	
