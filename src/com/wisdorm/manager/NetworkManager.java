@@ -38,6 +38,20 @@ public class NetworkManager {
 		case MessageBase.MSG_QUERYDORM:
 			QueryDorm((QueryDormMessage)msgBase,listener);
 			break;
+		case MessageBase.MSG_ALARM_OFF:
+			break;
+		case MessageBase.MSG_AlARM_ON:
+			break;
+		case MessageBase.MSG_CREATALARM:
+			break;
+		case MessageBase.MSG_LISTENALARM:
+			break;
+		case MessageBase.MSG_PULLALARMS:
+			break;
+		case MessageBase.MSG_REMOVEALARM:
+			break;
+		case MessageBase.MSG_UPDATEALARM:
+			break;
 		case MessageBase.MSG_ERROR:
 			break;
 		}
