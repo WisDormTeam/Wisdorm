@@ -68,8 +68,8 @@ public class LoginActivity extends Activity {
 		ActivityManager.getInstance().setLoginActivity(this);
 		
 		//test
-		Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
-		startActivity(intent);
+//		Intent intent = new Intent(LoginActivity.this, com.wisdorm.ui.MainActivity.class);
+//		startActivity(intent);
 	}
 	
 	private void initBmob(){

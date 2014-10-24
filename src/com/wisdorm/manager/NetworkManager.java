@@ -1,7 +1,12 @@
 package com.wisdorm.manager;
 
+import java.util.Iterator;
+import java.util.List;
+
 import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
@@ -10,6 +15,7 @@ import com.wisdorm.base.MessageBase;
 import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
 import com.wisdorm.common.Dorm;
+import com.wisdorm.common.LoginListener;
 import com.wisdorm.common.User;
 import com.wisdorm.common.Message.AlarmOffMessage;
 import com.wisdorm.common.Message.AlarmOnMessage;
@@ -114,19 +120,55 @@ public class NetworkManager {
 
 	private void alarmOff(AlarmOffMessage msg, final MytListener listener) {
 		// TODO Auto-generated method stub
-		User user = AppController.getInstance().getUserManager().getUser();
-		user.setAlarmon(false);
-		user.update(ActivityManager.getInstance().getMainActivity(), user.getObjectId(), new UpdateListener() {	
+		final UserManager um = AppController.getInstance().getUserManager();
+		
+		um.getNetworkTool().queryDormById(AppController.getInstance().getUserManager().getDorm().getObjectId(), new MytListener() {
+			
 			@Override
 			public void onSuccess() {
 				// TODO Auto-generated method stub
-				listener.onSuccess();
+				Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+				BmobQuery<User> dormmates = new BmobQuery<User>();
+				dormmates.addWhereRelatedTo("dormmates", new BmobPointer(dorm));
+				dormmates.findObjects(ActivityManager.getInstance().getMainActivity(), new FindListener<User>() {
+					
+					@Override
+					public void onSuccess(List<User> users) {
+						// TODO Auto-generated method stub
+						for (User user: users) {
+			               if(user.getAlarmon()){
+			            	   user.setAlarmon(false);
+			            	   user.update(ActivityManager.getInstance().getMainActivity(), new UpdateListener() {
+								
+								@Override
+								public void onSuccess() {
+									// TODO Auto-generated method stub
+									listener.onSuccess();
+								}
+								
+								@Override
+								public void onFailure(int arg0, String arg1) {
+									// TODO Auto-generated method stub
+									listener.onFailure(arg1);
+								}
+							});
+			               }
+			            }
+					}
+					
+					@Override
+					public void onError(int arg0, String arg1) {
+						// TODO Auto-generated method stub
+						
+					}
+				});
+				
 			}
 			
 			@Override
-			public void onFailure(int arg0, String arg1) {
+			public void onFailure(String failMsg) {
 				// TODO Auto-generated method stub
-				listener.onFailure(arg1);
+				
 			}
 		});
 	}
