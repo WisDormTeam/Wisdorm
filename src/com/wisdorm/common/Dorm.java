@@ -12,9 +12,18 @@ import cn.bmob.v3.datatype.BmobRelation;
 public class Dorm extends BmobObject{
 	private String dormname = null;
 	private BmobRelation dormmates = null;
+	private Boolean alarmon = false;
 	private int count;
 	
 	public Dorm() {
+	}
+	
+	public Boolean getAlarmon() {
+		return alarmon;
+	}
+	
+	public void setAlarmon(Boolean alarmon) {
+		this.alarmon = alarmon;
 	}
 	
 	public BmobRelation getDormMates() {

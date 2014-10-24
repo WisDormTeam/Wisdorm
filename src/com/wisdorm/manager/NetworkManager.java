@@ -75,14 +75,14 @@ public class NetworkManager {
 	
 	private void queryAlarm(QueryAlarmMessage msg,final MytListener listener) {
 		// TODO Auto-generated method stub
-		BmobQuery<User> query = new BmobQuery<User>();
-		User user = AppController.getInstance().getUserManager().getUser();
-		query.getObject(ActivityManager.getInstance().getMainActivity(),user.getObjectId(), new GetListener<User>() {
+		BmobQuery<Dorm> query = new BmobQuery<Dorm>();
+		Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+		query.getObject(ActivityManager.getInstance().getMainActivity(),dorm.getObjectId(), new GetListener<Dorm>() {
 			
 			@Override
-			public void onSuccess(User user) {
-				AppController.getInstance().getUserManager().setUser(user);
-				DebugTool.getInstance().log(user.getObjectId()+user.getAlarmon());
+			public void onSuccess(Dorm dorm) {
+				AppController.getInstance().getUserManager().setDorm(dorm);
+				DebugTool.getInstance().log(dorm.getAlarmon()+"dormid");
 				if(listener!=null){
 					listener.onSuccess();
 				}
@@ -102,9 +102,9 @@ public class NetworkManager {
 
 	private void alarmOn(AlarmOnMessage msg, final MytListener listener) {
 		// TODO Auto-generated method stub
-		User user = AppController.getInstance().getUserManager().getUser();
-		user.setAlarmon(true);
-		user.update(ActivityManager.getInstance().getMainActivity(), user.getObjectId(), new UpdateListener() {
+		Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+		dorm.setAlarmon(true);
+		dorm.update(ActivityManager.getInstance().getMainActivity(), dorm.getObjectId(), new UpdateListener() {
 			
 			@Override
 			public void onSuccess() {
@@ -123,58 +123,23 @@ public class NetworkManager {
 	private void alarmOff(AlarmOffMessage msg, final MytListener listener) {
 		// TODO Auto-generated method stub
 		final UserManager um = AppController.getInstance().getUserManager();
-		
-		BmobQuery<Dorm> query = new BmobQuery<Dorm>();
-		query.getObject(ActivityManager.getInstance().getMainActivity(),um.getDorm().getObjectId(), new GetListener<Dorm>() {
+		Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+		dorm.setAlarmon(false);
+		dorm.update(ActivityManager.getInstance().getMainActivity(), dorm.getObjectId(), new UpdateListener() {
 			
 			@Override
-			public void onSuccess(Dorm dorm) {
-				AppController.getInstance().getUserManager().setDorm(dorm);
-				BmobQuery<User> dormmates = new BmobQuery<User>();
-				dormmates.addWhereRelatedTo("dormmates", new BmobPointer(dorm));
-				dormmates.findObjects(ActivityManager.getInstance().getMainActivity(), new FindListener<User>() {
-					
-					@Override
-					public void onSuccess(List<User> users) {
-						// TODO Auto-generated method stub
-						for (User user: users) {
-			               if(user.getAlarmon()){
-			            	   user.setAlarmon(false);
-			            	   user.update(ActivityManager.getInstance().getMainActivity(), new UpdateListener() {
-								
-								@Override
-								public void onSuccess() {
-									// TODO Auto-generated method stub
-									listener.onSuccess();
-								}
-								
-								@Override
-								public void onFailure(int arg0, String arg1) {
-									// TODO Auto-generated method stub
-									listener.onFailure(arg1);
-								}
-							});
-			               }
-			            }
-					}
-					
-					@Override
-					public void onError(int arg0, String arg1) {
-						// TODO Auto-generated method stub
-						listener.onFailure(arg1+ "csdsadasdsa");
-					}
-				});
-				
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				listener.onSuccess();
 			}
 			
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				if (listener!=null) {
-					listener.onFailure(arg1);
-				}
+				listener.onFailure(arg1);
 			}
 		});
+		
 	}
 
 	private void QueryDorm(QueryDormMessage msg, MytListener listener) {
