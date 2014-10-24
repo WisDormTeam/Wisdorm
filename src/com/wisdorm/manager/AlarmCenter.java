@@ -76,7 +76,7 @@ public class AlarmCenter {
 	public boolean addAlarmToSystem(Alarm alarm) {
 		Intent intent = new Intent(mActivity, AlarmReceiver.class);
 		intent.putExtra(ALARM_INFO, alarm.getBundleInfo());
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mActivity, 0, intent, 0);
+		PendingIntent pendingIntent = PendingIntent.getBroadcast(this.mActivity, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		AlarmManager alarmManager = (AlarmManager)mActivity.getSystemService(Context.ALARM_SERVICE);
 		alarmManager.set(AlarmManager.RTC_WAKEUP, alarm.getTimeMillis(), pendingIntent);
 		

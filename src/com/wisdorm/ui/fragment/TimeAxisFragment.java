@@ -1,9 +1,11 @@
 package com.wisdorm.ui.fragment;
 
 import com.example.wisdorm.R;
+import com.wisdorm.ui.filechooser.FileChooserActivity;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +22,7 @@ public class TimeAxisFragment extends BaseFragment{
 
 	@Override
 	public void addItem() {
-		Toast.makeText(getActivity(), "In TimeAxis", Toast.LENGTH_LONG).show();
-		
+		TypeSelectFragment fragment = new TypeSelectFragment();
+		fragment.show(getActivity().getFragmentManager(), "type_select");
 	}
 }

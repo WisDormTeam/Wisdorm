@@ -48,6 +48,6 @@ public class AlarmFragment extends BaseFragment  {
 	@Override
 	public void addItem() {
 		AlarmPickerFragment fragment = new AlarmPickerFragment();
-		fragment.show(getActivity().getFragmentManager(), "dialog");
+		fragment.show(getActivity().getFragmentManager(), "alarm_picker");
 	}
 }

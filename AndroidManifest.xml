@@ -56,6 +56,12 @@
             android:name="com.wisdorm.ui.AlarmAlertActivity"
             android:theme="@style/AlarmAlert">
         </activity>
+        <activity
+            android:name="com.wisdorm.ui.filechooser.FileChooserActivity">
+        </activity>
+        <activity
+            android:name="com.wisdorm.ui.AddTextActivity">
+        </activity>
     </application>
 
 </manifest>
