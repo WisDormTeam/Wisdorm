@@ -28,7 +28,7 @@ public class AlarmAlertActivity extends Activity{
 	private MediaPlayer mMediaPlayer  = null;
 	private Button mButton = null;
 	private TextView mTime = null;
-	private VisitNetworkTimer timer = null;
+	private VisitNetworkTimer mTimer = null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
@@ -68,6 +68,11 @@ public class AlarmAlertActivity extends Activity{
 		}
 	}
 	
+	private void cancelTimer() {
+		if(mTimer != null)
+			mTimer.cancel();
+	}
+	
 	private void stopAlert() {
 		stopMusic();
 		finish();	
@@ -91,8 +96,8 @@ public class AlarmAlertActivity extends Activity{
 	}
 	
 	private void visitNetworkRepeatedly() {
-		timer = new VisitNetworkTimer(VISIT_INTERVEL, 1000);
-		timer.start();
+		mTimer = new VisitNetworkTimer(VISIT_INTERVEL, 1000);
+		mTimer.start();
 	}
 	
 	private class VisitNetworkTimer extends CountDownTimer {
