@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -64,7 +65,6 @@ public class LoginActivity extends Activity {
 	
 		//init Bmob here
 		initBmob();
-		
 		ActivityManager.getInstance().setLoginActivity(this);
 		
 		//test
@@ -100,10 +100,11 @@ public class LoginActivity extends Activity {
 					Log.v("debug", "login success");
 					proDialog.dismiss();
 					Toast.makeText(LoginActivity.this, "login success",
-					Toast.LENGTH_LONG).show();
+							Toast.LENGTH_LONG).show();
 					
-					if(AppController.getInstance().getUserManager().getUser().getDormId() == null)
+					if(AppController.getInstance().getUserManager().getUser().getDorm() == null)
 					{
+	
 						DebugTool.getInstance().log("null!!!!!!");
 						Intent intent = new Intent(LoginActivity.this, CreateDormActivity.class);
 						startActivity(intent);
@@ -161,7 +162,7 @@ public class LoginActivity extends Activity {
 				public void onFailure(String failMsg) {
 					// TODO Auto-generated method stub
 					Log.v("fail", "register failure" + failMsg);
-					Toast.makeText(LoginActivity.this, "ע��ʧ��"+failMsg,
+					Toast.makeText(LoginActivity.this, "register fail"+failMsg,
 							Toast.LENGTH_LONG).show();
 					
 				}
@@ -170,8 +171,6 @@ public class LoginActivity extends Activity {
 		}
 
 	}
-
-	
 
 }
 
