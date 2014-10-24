@@ -34,7 +34,7 @@ public class AttendDormActivity extends Activity {
 		
 		btn_confirm = (Button)findViewById(R.id.confirm);
 		btn_confirm.setOnClickListener(new ConfirmClickListener());
-		dorm = AppController.getInstance().getUserManager().getUser().getDorm();
+		dorm = AppController.getInstance().getUserManager().getDorm();
 		
 		ActivityManager.getInstance().setAttendDormActivity(this);
 	}
