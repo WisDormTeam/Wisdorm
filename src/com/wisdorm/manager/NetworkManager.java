@@ -220,7 +220,7 @@ public class NetworkManager {
 	private void login(LoginMessage msg,final MytListener listener) {
 		
 		final UserManager um = AppController.getInstance().getUserManager();
-		final User user =um.getUser();
+		final User user = new User();
 		
 		user.setUsername(msg.getUsername());
 		user.setPassword(msg.getPassword());

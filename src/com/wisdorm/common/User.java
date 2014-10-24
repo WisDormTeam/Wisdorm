@@ -14,7 +14,6 @@ public class User extends BmobUser{
 	private Boolean alarmon = false;
 	private String nickname = null;
 	private BmobFile icon = null;
-	private String dormid = null;
 	private Dorm dorm = null;
 	private BmobRelation alarms = null;
 	
@@ -28,14 +27,6 @@ public class User extends BmobUser{
 	
 	public void setIcon(BmobFile icon) {
 		this.icon = icon;
-	}
-	
-	public String getDormId() {
-		return dormid;
-	}
-	
-	public void setDormId(String dormId) {
-		this.dormid = dormId;
 	}
 	
 	public Dorm getDorm() {
