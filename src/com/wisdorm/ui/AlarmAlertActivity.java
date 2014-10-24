@@ -50,7 +50,4 @@ public class AlarmAlertActivity extends Activity{
 			mMediaPlayer = null;
 		}
 	}
-	
-	//每隔10秒访问网络
-	private void 
 }
