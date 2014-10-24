@@ -1,6 +1,8 @@
 package com.wisdorm.manager;
 
+import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.GetListener;
 import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UpdateListener;
 
@@ -14,6 +16,7 @@ import com.wisdorm.common.Message.AlarmOnMessage;
 import com.wisdorm.common.Message.AttendDormMessage;
 import com.wisdorm.common.Message.CreatDormMessage;
 import com.wisdorm.common.Message.LoginMessage;
+import com.wisdorm.common.Message.QueryAlarmMessage;
 import com.wisdorm.common.Message.QueryDormMessage;
 import com.wisdorm.common.Message.RegisterMessage;
 
@@ -56,11 +59,39 @@ public class NetworkManager {
 			break;
 		case MessageBase.MSG_UPDATEALARM:
 			break;
+		case MessageBase.MSG_QUERYALARM:
+			queryAlarm((QueryAlarmMessage)msgBase,listener);
+			break;
 		case MessageBase.MSG_ERROR:
 			break;
 		}
 	}
 	
+	private void queryAlarm(QueryAlarmMessage msg,final MytListener listener) {
+		// TODO Auto-generated method stub
+		BmobQuery<User> query = new BmobQuery<User>();
+		User user = AppController.getInstance().getUserManager().getUser();
+		query.getObject(ActivityManager.getInstance().getCreateDormActivity(),user.getObjectId(), new GetListener<User>() {
+			
+			@Override
+			public void onSuccess(User user) {
+				AppController.getInstance().getUserManager().setUser(user);
+				if(listener!=null){
+					listener.onSuccess();
+				}
+				
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
+			}
+		});
+	}
+
 	private void alarmOn(AlarmOnMessage msg, final MytListener listener) {
 		// TODO Auto-generated method stub
 		User user = AppController.getInstance().getUserManager().getUser();

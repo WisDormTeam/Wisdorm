@@ -17,6 +17,7 @@ public class MessageBase {
 	public static final int MSG_UPDATEALARM = 10;
 	public static final int MSG_PULLALARMS 	= 11;
 	public static final int MSG_LISTENALARM = 12;
+	public static final int MSG_QUERYALARM = 13;
 	//..............................
 	//.........another type number
 	
