@@ -128,7 +128,7 @@ public class AlarmAlertActivity extends Activity{
 				@Override
 				public void onSuccess() {
 					UserManager userManager = AppController.getInstance().getUserManager();
-					if(userManager.getUser().getAlarmon() == false) {
+					if(userManager.getDorm().getAlarmon() == false) {
 						Toast.makeText(AlarmAlertActivity.this, "闹钟被关闭", Toast.LENGTH_LONG).show();
 						stopAlert();
 					}
