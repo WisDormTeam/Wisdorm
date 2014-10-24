@@ -77,11 +77,12 @@ public class NetworkManager {
 		// TODO Auto-generated method stub
 		BmobQuery<User> query = new BmobQuery<User>();
 		User user = AppController.getInstance().getUserManager().getUser();
-		query.getObject(ActivityManager.getInstance().getCreateDormActivity(),user.getObjectId(), new GetListener<User>() {
+		query.getObject(ActivityManager.getInstance().getMainActivity(),user.getObjectId(), new GetListener<User>() {
 			
 			@Override
 			public void onSuccess(User user) {
 				AppController.getInstance().getUserManager().setUser(user);
+				DebugTool.getInstance().log(user.getObjectId()+user.getAlarmon());
 				if(listener!=null){
 					listener.onSuccess();
 				}
