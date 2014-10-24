@@ -4,14 +4,20 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.wisdorm.manager.AppController;
+
+import cn.bmob.v3.BmobObject;
+
 import android.R.string;
 import android.os.Bundle;
 
-public class Alarm {
+public class Alarm extends BmobObject{
 	private long     mID;
 	private long    mTimeMillis;
 	private boolean[] mRepeating;  //store to database as integer
 	private final static int DAY_IN_WEEK = 7;
+	
+	private User user = null;
 	
 	public final static String ID_KEY = "ALARM_ID";
 	public final static String TIMEMILLIS_KEY = "ALARM_TIMEMILLIS";
@@ -21,6 +27,14 @@ public class Alarm {
 		setID(0);
 		setTimeMillis(0);
 		setRepeating(new boolean[DAY_IN_WEEK]);
+	}
+	
+	public User getUser() {
+		return user;
+	}
+	
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	//AlarmId is TimeMillis that it was created

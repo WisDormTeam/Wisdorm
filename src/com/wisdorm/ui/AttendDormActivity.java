@@ -4,7 +4,13 @@ import com.example.wisdorm.R;
 import com.example.wisdorm.R.id;
 import com.example.wisdorm.R.layout;
 import com.example.wisdorm.R.menu;
+import com.wisdorm.base.MytListener;
+import com.wisdorm.common.Dorm;
+import com.wisdorm.common.Message.AttendDormMessage;
+import com.wisdorm.common.Message.CreatDormMessage;
 import com.wisdorm.manager.ActivityManager;
+import com.wisdorm.manager.AppController;
+import com.wisdorm.manager.NetworkManager;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,12 +20,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class AttendDormActivity extends Activity {
 	
 	private Button btn_confirm;
+	private Dorm dorm;
 	
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -27,6 +34,7 @@ public class AttendDormActivity extends Activity {
 		
 		btn_confirm = (Button)findViewById(R.id.confirm);
 		btn_confirm.setOnClickListener(new ConfirmClickListener());
+		dorm = AppController.getInstance().getUserManager().getUser().getDorm();
 		
 		ActivityManager.getInstance().setAttendDormActivity(this);
 	}
@@ -56,9 +64,27 @@ public class AttendDormActivity extends Activity {
 		@Override
 		public void onClick(View arg0) {
 			// TODO Auto-generated method stub
-			Intent intent = new Intent(AttendDormActivity.this,MainActivity.class);
-			startActivity(intent);
 			
+			 NetworkManager nm = AppController.getInstance().getNetworkManager();
+		     nm.send(new AttendDormMessage(dorm.getObjectId()), new MytListener() {
+				
+				@Override
+				public void onSuccess() {
+					// TODO Auto-generated method stub
+					Toast.makeText(AttendDormActivity.this, "Attend dorm success",
+							Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(AttendDormActivity.this,MainActivity.class);
+				    startActivity(intent);
+				}
+				
+				@Override
+				public void onFailure(String failMsg) {
+					// TODO Auto-generated method stub
+					Toast.makeText(AttendDormActivity.this, failMsg,
+							Toast.LENGTH_LONG).show();
+					
+				}
+			});
 		}		
 	}
 }
