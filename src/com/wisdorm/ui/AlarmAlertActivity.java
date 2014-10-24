@@ -91,6 +91,7 @@ public class AlarmAlertActivity extends Activity{
 			
 			@Override
 			public void onFailure(String failMsg) {
+				Toast.makeText(AlarmAlertActivity.this, failMsg, Toast.LENGTH_LONG).show();
 			}
 		});
 	}

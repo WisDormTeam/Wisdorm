@@ -23,6 +23,7 @@ import com.wisdorm.ui.fragment.AlarmFragment;
 import com.wisdorm.ui.fragment.BaseFragment;
 import com.wisdorm.ui.fragment.FragmentAdapter;
 import com.wisdorm.ui.fragment.TimeAxisFragment;
+import com.wisdorm.manager.ActivityManager;
 
 public class MainActivity extends FragmentActivity{
 	private FragmentAdapter mAdapter = null;
@@ -32,6 +33,7 @@ public class MainActivity extends FragmentActivity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main_activity);
+		ActivityManager.getInstance().setMainActivity(this);
 		
 		initFragment();
 		initAlarmCenter();
