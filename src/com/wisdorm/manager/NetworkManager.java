@@ -92,6 +92,7 @@ public class NetworkManager {
 			@Override
 			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
+				DebugTool.getInstance().log(arg1);
 				if (listener!=null) {
 					listener.onFailure(arg1);
 				}
@@ -123,12 +124,12 @@ public class NetworkManager {
 		// TODO Auto-generated method stub
 		final UserManager um = AppController.getInstance().getUserManager();
 		
-		um.getNetworkTool().queryDormById(AppController.getInstance().getUserManager().getDorm().getObjectId(), new MytListener() {
+		BmobQuery<Dorm> query = new BmobQuery<Dorm>();
+		query.getObject(ActivityManager.getInstance().getMainActivity(),um.getDorm().getObjectId(), new GetListener<Dorm>() {
 			
 			@Override
-			public void onSuccess() {
-				// TODO Auto-generated method stub
-				Dorm dorm = AppController.getInstance().getUserManager().getDorm();
+			public void onSuccess(Dorm dorm) {
+				AppController.getInstance().getUserManager().setDorm(dorm);
 				BmobQuery<User> dormmates = new BmobQuery<User>();
 				dormmates.addWhereRelatedTo("dormmates", new BmobPointer(dorm));
 				dormmates.findObjects(ActivityManager.getInstance().getMainActivity(), new FindListener<User>() {
@@ -160,16 +161,18 @@ public class NetworkManager {
 					@Override
 					public void onError(int arg0, String arg1) {
 						// TODO Auto-generated method stub
-						
+						listener.onFailure(arg1+ "csdsadasdsa");
 					}
 				});
 				
 			}
 			
 			@Override
-			public void onFailure(String failMsg) {
+			public void onFailure(int arg0, String arg1) {
 				// TODO Auto-generated method stub
-				
+				if (listener!=null) {
+					listener.onFailure(arg1);
+				}
 			}
 		});
 	}
