@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 public class AlarmAlertActivity extends Activity{
 	private final static int VISIT_TIME = 600;
-	private final static long VISIT_INTERVEL = 500;
+	private final static long VISIT_INTERVEL = 1000;
 	private int mCurVisitTIme = 0;
 	
 	private MediaPlayer mMediaPlayer  = null;
@@ -75,6 +75,7 @@ public class AlarmAlertActivity extends Activity{
 	
 	private void stopAlert() {
 		stopMusic();
+		cancelTimer();
 		finish();	
 	}
 	
@@ -132,12 +133,14 @@ public class AlarmAlertActivity extends Activity{
 						stopAlert();
 					}
 					else {
+						Toast.makeText(AlarmAlertActivity.this, "闹钟还没有被关闭", Toast.LENGTH_LONG).show();
 						start();
 					}
 				}
 				
 				@Override
 				public void onFailure(String failMsg) {
+					Toast.makeText(AlarmAlertActivity.this, failMsg, Toast.LENGTH_LONG).show();
 					start();
 				}
 			});
