@@ -25,7 +25,6 @@ public class TimeAxisFragment extends BaseFragment{
 			@Override
 			public void onClick(View arg0) {
 				turnOffAlarm();
-				
 			}
 		});
 		
@@ -49,6 +48,7 @@ public class TimeAxisFragment extends BaseFragment{
 			
 			@Override
 			public void onFailure(String failMsg) {
+				Toast.makeText(getActivity(), failMsg, Toast.LENGTH_LONG).show();
 			}
 		});
 	}
