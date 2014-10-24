@@ -9,6 +9,8 @@ import com.wisdorm.base.MytListener;
 import com.wisdorm.bmob.DebugTool;
 import com.wisdorm.common.Dorm;
 import com.wisdorm.common.User;
+import com.wisdorm.common.Message.AlarmOffMessage;
+import com.wisdorm.common.Message.AlarmOnMessage;
 import com.wisdorm.common.Message.AttendDormMessage;
 import com.wisdorm.common.Message.CreatDormMessage;
 import com.wisdorm.common.Message.LoginMessage;
@@ -39,8 +41,10 @@ public class NetworkManager {
 			QueryDorm((QueryDormMessage)msgBase,listener);
 			break;
 		case MessageBase.MSG_ALARM_OFF:
+			alarmOff((AlarmOffMessage)msgBase,listener);
 			break;
 		case MessageBase.MSG_AlARM_ON:
+			alarmOn((AlarmOnMessage)msgBase,listener);
 			break;
 		case MessageBase.MSG_CREATALARM:
 			break;
@@ -57,6 +61,45 @@ public class NetworkManager {
 		}
 	}
 	
+	private void alarmOn(AlarmOnMessage msg, final MytListener listener) {
+		// TODO Auto-generated method stub
+		User user = AppController.getInstance().getUserManager().getUser();
+		user.setAlarmon(true);
+		user.update(ActivityManager.getInstance().getMainActivity(), user.getObjectId(), new UpdateListener() {
+			
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				listener.onSuccess();
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				listener.onFailure(arg1);
+			}
+		});
+	}
+
+	private void alarmOff(AlarmOffMessage msg, final MytListener listener) {
+		// TODO Auto-generated method stub
+		User user = AppController.getInstance().getUserManager().getUser();
+		user.setAlarmon(false);
+		user.update(ActivityManager.getInstance().getMainActivity(), user.getObjectId(), new UpdateListener() {	
+			@Override
+			public void onSuccess() {
+				// TODO Auto-generated method stub
+				listener.onSuccess();
+			}
+			
+			@Override
+			public void onFailure(int arg0, String arg1) {
+				// TODO Auto-generated method stub
+				listener.onFailure(arg1);
+			}
+		});
+	}
+
 	private void QueryDorm(QueryDormMessage msg, MytListener listener) {
 		// TODO Auto-generated method stub
 		final String dormId = msg.getDormId();
